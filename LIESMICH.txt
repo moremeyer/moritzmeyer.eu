@@ -1,0 +1,77 @@
+WEBSITE MORITZMEYER.EU – ANLEITUNG
+==================================
+
+INHALT DES ORDNERS
+  index.html             Startseite (Deutsch)
+  person.html            Zur Person
+  lebenslauf.html        Lebenslauf
+  publikationen.html     Masterarbeit und Policy Paper
+  kontakt.html           Kontaktformular
+  impressum.html         Impressum (rechtlich verbindlich)
+  datenschutz.html       Datenschutzerklärung (rechtlich verbindlich)
+  en/                    Alle Seiten auf Englisch, gleiche Dateinamen
+  404.html               Seite für falsche Adressen
+  style.css              Gestaltung aller Seiten
+  skizze.jpg             Gezeichnetes Porträt
+  masterarbeit-moritz-meyer.pdf
+                         Web-Fassung der Masterarbeit (ohne Matrikelnummer, Uni-Mail,
+                         Unterschriften und Prüfungsformulare)
+  favicon.svg            "MM"-Symbol für den Browser-Tab
+  CNAME                  Sagt GitHub Pages, unter welcher Domain die Seite läuft
+  LIESMICH.txt           Diese Anleitung (nicht hochladen nötig)
+
+NICHT HOCHLADEN: foto.jpg (Originalfoto) und die Original-PDF der Masterarbeit.
+
+
+1. SPRACHEN
+-----------
+Jede deutsche Seite hat ein englisches Gegenstück im Ordner en/ mit demselben Dateinamen.
+Der Knopf EN/DE oben rechts springt zwischen beiden hin und her. Wenn Sie einen Text ändern,
+ändern Sie ihn am besten in beiden Fassungen.
+
+Beim Hochladen zu GitHub den Ordner en/ mit hochladen (den ganzen Ordner hineinziehen,
+dann bleibt die Struktur erhalten).
+
+
+2. KONTAKTFORMULAR (Web3Forms)
+------------------------------
+Eine statische Website kann selbst keine Mails verschicken. Das übernimmt der Dienst Web3Forms.
+a) Auf web3forms.com Ihre E-Mail-Adresse eingeben und "Create Access Key" klicken.
+   Der Schlüssel kommt per Mail. Er ist kein Passwort und darf im Code stehen.
+b) In kontakt.html UND en/kontakt.html den Platzhalter
+       HIER-ACCESS-KEY-EINTRAGEN
+   durch diesen Schlüssel ersetzen.
+c) Im Web3Forms-Dashboard die Speicherdauer der Nachrichten auf 7 Tage stellen.
+   Die Datenschutzerklärung sagt das so aus.
+d) Testnachricht über https://moritzmeyer.eu/kontakt.html schicken.
+
+
+3. ÄNDERUNGEN
+-------------
+Datei im Repository anklicken → Stift-Symbol → bearbeiten → "Commit changes".
+Nach ein, zwei Minuten ist die Änderung online.
+
+Weitere Stationen im Lebenslauf: einen kompletten Block von <article class="cv-entry">
+bis </article> kopieren und darunter einfügen.
+
+WICHTIG: Das Repository ist öffentlich, auch alle früheren Versionen und Kommentare im HTML.
+Nichts Privates hineinschreiben. Wer etwas spurlos entfernen will, legt das Repository neu an.
+
+
+4. DNS BEI INWX (Stand: funktioniert)
+-------------------------------------
+     Typ    Name                                Wert
+     A      (leer)                              185.199.108.153 / .109.153 / .110.153 / .111.153
+     AAAA   (leer)                              2606:50c0:8000::153 / 8001 / 8002 / 8003
+     NS     (leer)                              ns.inwx.de, ns2.inwx.de, ns3.inwx.eu
+     CNAME  www                                 moremeyer.github.io
+     TXT    _github-pages-challenge-moremeyer   (Verifizierungscode von GitHub, nicht löschen)
+
+
+5. RECHTLICHES
+--------------
+- Impressum: Rechtlich verlangt ist eine vollständige Postanschrift (mit Straße).
+  Eine c/o-Adresse eines Impressum-Service ist die übliche Lösung, um die Wohnadresse zu schützen.
+- Die Datenschutzerklärung passt, solange die Seite bei GitHub Pages liegt, das Formular über
+  Web3Forms läuft und nichts Externes eingebunden wird (keine Google Fonts, Videos, Karten, Tracking).
+- Die Rechtstexte sind sorgfältige Vorlagen, aber keine Rechtsberatung.
