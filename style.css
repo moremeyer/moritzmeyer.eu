@@ -14,6 +14,8 @@
   --accent-hover: #163A6A;
   --todo-bg: #FFEFA3;
   --todo-fg: #3D3000;
+  --field: #F1F3F7;
+  --field-line: #E3E7EE;
 
   /* Schrift */
   --font-display: "Iowan Old Style", "Charter", "Bitstream Charter", "Sitka Text", Cambria, Georgia, serif;
@@ -42,6 +44,8 @@
     --accent-hover: #BCD2F7;
     --todo-bg: #4A3D0A;
     --todo-fg: #FFE9A0;
+    --field: #1C222C;
+    --field-line: #262D38;
     color-scheme: dark;
   }
 }
@@ -55,6 +59,8 @@
   --accent-hover: #BCD2F7;
   --todo-bg: #4A3D0A;
   --todo-fg: #FFE9A0;
+  --field: #1C222C;
+  --field-line: #262D38;
   color-scheme: dark;
 }
 
@@ -167,20 +173,25 @@ mark.todo {
 
 .header-tools { display: flex; align-items: center; gap: 1rem 1.75rem; flex-wrap: wrap; }
 .lang-switch {
-  display: inline-grid;
-  place-items: center;
-  min-width: 2.6rem;
-  height: 2rem;
-  padding-inline: 0.6rem;
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  height: 42px;
+  padding-inline: 0.75rem 0.85rem;
   border: 1px solid var(--line);
-  border-radius: 999px;
+  border-radius: 12px;
+  background: var(--surface);
   color: var(--fg);
-  font-size: var(--step--1);
+  font-size: 0.875rem;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-decoration: none;
+  transition: border-color 0.15s ease, color 0.15s ease;
 }
-.lang-switch:hover { border-color: var(--accent); color: var(--accent); }
+.lang-switch svg { width: 18px; height: 18px; color: var(--muted); transition: color 0.15s ease; }
+.lang-switch:hover { border-color: var(--muted); color: var(--fg); }
+.lang-switch:hover svg { color: var(--accent); }
 
 @media (max-width: 760px) {
   .header-row { display: grid; grid-template-columns: 1fr auto; gap: 0.9rem 1rem; }
@@ -200,24 +211,53 @@ mark.todo {
 .pub-link a { font-weight: 600; }
 .pub-note { margin-top: 2rem; max-width: var(--measure); color: var(--muted); font-size: 0.95rem; }
 
-/* ---------- Kontaktformular ---------- */
-.contact-form { display: grid; gap: 1.25rem; max-width: var(--measure); }
-.field { display: grid; gap: 0.4rem; }
-.field label { font-weight: 600; }
-.field .hint { font-weight: 400; color: var(--muted); font-size: 0.9rem; }
-.field input, .field textarea {
+/* ---------- Kontaktformular (Karte, zweispaltig) ---------- */
+.contact-form {
+  max-width: 44rem;
+  display: grid;
+  gap: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: clamp(1.25rem, 4vw, 2rem);
+}
+.form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.4rem 1.25rem; }
+.field { display: grid; gap: 0.45rem; align-content: start; min-width: 0; }
+.field-wide { grid-column: 1 / -1; }
+.field label { font-size: 0.875rem; font-weight: 600; }
+.req { color: var(--accent); font-weight: 600; }
+.field input, .field textarea, .field select {
   width: 100%;
   font: inherit;
   color: var(--fg);
-  background: var(--surface);
-  border: 1px solid var(--line);
-  border-radius: 6px;
-  padding: 0.7rem 0.85rem;
+  background: var(--field);
+  border: 1px solid var(--field-line);
+  border-radius: 12px;
+  padding: 0.8rem 0.95rem;
+  min-height: 3.2rem;
+  transition: border-color 0.15s ease, background-color 0.15s ease;
 }
-.field textarea { resize: vertical; min-height: 9rem; }
-.field input:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.field textarea { resize: vertical; min-height: 9.5rem; line-height: 1.55; }
+.field input:hover, .field textarea:hover, .field select:hover { border-color: var(--line); }
+.field input:focus-visible, .field textarea:focus-visible, .field select:focus-visible {
+  outline: 2px solid var(--accent); outline-offset: 1px; border-color: var(--accent); background: var(--surface);
+}
+.select-wrap { position: relative; }
+.select-wrap select { appearance: none; -webkit-appearance: none; padding-right: 2.6rem; cursor: pointer; }
+.select-wrap::after {
+  content: "";
+  position: absolute;
+  right: 1.1rem;
+  top: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-right: 2px solid var(--muted);
+  border-bottom: 2px solid var(--muted);
+  transform: translateY(-70%) rotate(45deg);
+  pointer-events: none;
+}
 .hp { position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
-.form-privacy { font-size: 0.9rem; color: var(--muted); }
+.form-privacy { font-size: 0.875rem; color: var(--muted); }
 .form-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1.25rem; }
 .form-actions button {
   font: inherit;
@@ -225,8 +265,8 @@ mark.todo {
   color: var(--bg);
   background: var(--accent);
   border: 0;
-  border-radius: 6px;
-  padding: 0.75rem 1.4rem;
+  border-radius: 12px;
+  padding: 0.85rem 1.6rem;
   cursor: pointer;
 }
 .form-actions button:hover { background: var(--accent-hover); }
@@ -234,6 +274,9 @@ mark.todo {
 .form-status { min-width: 0; font-size: 0.95rem; }
 .form-status.ok { color: var(--accent); font-weight: 600; }
 .form-status.err { color: var(--fg); font-weight: 600; }
+@media (max-width: 560px) {
+  .form-grid { grid-template-columns: minmax(0, 1fr); }
+}
 
 /* ---------- Gemeinsame Bausteine ---------- */
 main { padding-block: clamp(3rem, 9vw, 6rem) clamp(3rem, 8vw, 5rem); }
